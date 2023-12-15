@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator nestgraphql {
+  provider               = "node node_modules/prisma-nestjs-graphql"
+  output                 = "../src/@generated/prisma-nestjs-graphql"
+  fields_Validator_from  = "class-validator"
+  fields_Validator_input = true
+  reExport               = Directories
+  noAtomicOperations     = true
+}
+
+model User {
+  id          Int     @id @default(autoincrement())
+  /// @Validator.IsEmail()
+  /// @Validator.IsNotEmpty({ message: '用户名不能为空' })
+  email       String  @unique
+  /// @Validator.MinLength(3)
+  /// @Validator.MaxLength(50)
+  /// @Validator.IsNotEmpty({ message: '用户名不能为空' })
+  name        String  @unique
+  /// @Validator.IsMobilePhone('zh-CN')
+  /// @Validator.IsNotEmpty({ message: '手机号不能为空'})
+  phone       String  @unique
+  password    String?
+  salt        String?
+  roles       Role[]
+  description String?
+
+  @@index([id])
+}
+
+model Role {
+  id          Int          @id @default(autoincrement())
+  /// @Validator.MinLength(3)
+  /// @Validator.MaxLength(50)
+  name        String
+  description String?
+  permissions Permission[]
+  role        User?        @relation(fields: [userId], references: [id])
+  userId      Int?
+
+  @@index([id])
+}
+
+model Permission {
+  id          Int     @id @default(autoincrement())
+  description String?
+  /// @Validator.MinLength(3)
+  /// @Validator.MaxLength(50)
+  name        String
+  roleId      Int?
+  roles       Role?   @relation(fields: [roleId], references: [id])
+
+  @@index([id])
+}

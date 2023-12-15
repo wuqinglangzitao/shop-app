@@ -1,0 +1,471 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+type Mutation {
+  createUser(UserCreateInput: UserCreateInput!): User!
+  login(password: String!, phone: String!): User!
+  register(updateUserInput: RegisterInput!): User!
+  removeUser(id: Int!): User!
+  updateUser(updateUserInput: UserUncheckedUpdateInput!): User!
+}
+
+input NestedIntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+input NestedStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NestedStringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+type Permission {
+  description: String
+  id: ID!
+  name: String!
+  roleId: Int
+  roles: Role
+}
+
+input PermissionCreateManyRolesInput {
+  description: String
+  id: Int
+  name: String!
+}
+
+input PermissionCreateManyRolesInputEnvelope {
+  data: [PermissionCreateManyRolesInput!]!
+  skipDuplicates: Boolean
+}
+
+input PermissionCreateNestedManyWithoutRolesInput {
+  connect: [PermissionWhereUniqueInput!]
+  connectOrCreate: [PermissionCreateOrConnectWithoutRolesInput!]
+  create: [PermissionCreateWithoutRolesInput!]
+  createMany: PermissionCreateManyRolesInputEnvelope
+}
+
+input PermissionCreateOrConnectWithoutRolesInput {
+  create: PermissionCreateWithoutRolesInput!
+  where: PermissionWhereUniqueInput!
+}
+
+input PermissionCreateWithoutRolesInput {
+  description: String
+  name: String!
+}
+
+input PermissionListRelationFilter {
+  every: PermissionWhereInput
+  none: PermissionWhereInput
+  some: PermissionWhereInput
+}
+
+input PermissionScalarWhereInput {
+  AND: [PermissionScalarWhereInput!]
+  NOT: [PermissionScalarWhereInput!]
+  OR: [PermissionScalarWhereInput!]
+  description: StringNullableFilter
+  id: IntFilter
+  name: StringFilter
+  roleId: IntNullableFilter
+}
+
+input PermissionUpdateManyMutationInput {
+  description: String
+  name: String
+}
+
+input PermissionUpdateManyWithWhereWithoutRolesInput {
+  data: PermissionUpdateManyMutationInput!
+  where: PermissionScalarWhereInput!
+}
+
+input PermissionUpdateManyWithoutRolesNestedInput {
+  connect: [PermissionWhereUniqueInput!]
+  connectOrCreate: [PermissionCreateOrConnectWithoutRolesInput!]
+  create: [PermissionCreateWithoutRolesInput!]
+  createMany: PermissionCreateManyRolesInputEnvelope
+  delete: [PermissionWhereUniqueInput!]
+  deleteMany: [PermissionScalarWhereInput!]
+  disconnect: [PermissionWhereUniqueInput!]
+  set: [PermissionWhereUniqueInput!]
+  update: [PermissionUpdateWithWhereUniqueWithoutRolesInput!]
+  updateMany: [PermissionUpdateManyWithWhereWithoutRolesInput!]
+  upsert: [PermissionUpsertWithWhereUniqueWithoutRolesInput!]
+}
+
+input PermissionUpdateWithWhereUniqueWithoutRolesInput {
+  data: PermissionUpdateWithoutRolesInput!
+  where: PermissionWhereUniqueInput!
+}
+
+input PermissionUpdateWithoutRolesInput {
+  description: String
+  name: String
+}
+
+input PermissionUpsertWithWhereUniqueWithoutRolesInput {
+  create: PermissionCreateWithoutRolesInput!
+  update: PermissionUpdateWithoutRolesInput!
+  where: PermissionWhereUniqueInput!
+}
+
+input PermissionWhereInput {
+  AND: [PermissionWhereInput!]
+  NOT: [PermissionWhereInput!]
+  OR: [PermissionWhereInput!]
+  description: StringNullableFilter
+  id: IntFilter
+  name: StringFilter
+  roleId: IntNullableFilter
+  roles: RoleNullableRelationFilter
+}
+
+input PermissionWhereUniqueInput {
+  AND: [PermissionWhereInput!]
+  NOT: [PermissionWhereInput!]
+  OR: [PermissionWhereInput!]
+  description: StringNullableFilter
+  id: Int
+  name: StringFilter
+  roleId: IntNullableFilter
+  roles: RoleNullableRelationFilter
+}
+
+type Query {
+  user(id: Int!): User!
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input RegisterInput {
+  confirmPassword: String!
+  description: String
+  email: String!
+  name: String!
+  password: String
+  phone: String!
+  roles: RoleCreateNestedManyWithoutRoleInput
+  salt: String
+}
+
+type Role {
+  _count: RoleCount!
+  description: String
+  id: ID!
+  name: String!
+  permissions: [Permission!]
+  role: User
+  userId: Int
+}
+
+type RoleCount {
+  permissions: Int!
+}
+
+input RoleCreateManyRoleInput {
+  description: String
+  id: Int
+  name: String!
+}
+
+input RoleCreateManyRoleInputEnvelope {
+  data: [RoleCreateManyRoleInput!]!
+  skipDuplicates: Boolean
+}
+
+input RoleCreateNestedManyWithoutRoleInput {
+  connect: [RoleWhereUniqueInput!]
+  connectOrCreate: [RoleCreateOrConnectWithoutRoleInput!]
+  create: [RoleCreateWithoutRoleInput!]
+  createMany: RoleCreateManyRoleInputEnvelope
+}
+
+input RoleCreateOrConnectWithoutRoleInput {
+  create: RoleCreateWithoutRoleInput!
+  where: RoleWhereUniqueInput!
+}
+
+input RoleCreateWithoutRoleInput {
+  description: String
+  name: String!
+  permissions: PermissionCreateNestedManyWithoutRolesInput
+}
+
+input RoleListRelationFilter {
+  every: RoleWhereInput
+  none: RoleWhereInput
+  some: RoleWhereInput
+}
+
+input RoleNullableRelationFilter {
+  is: RoleWhereInput
+  isNot: RoleWhereInput
+}
+
+input RoleScalarWhereInput {
+  AND: [RoleScalarWhereInput!]
+  NOT: [RoleScalarWhereInput!]
+  OR: [RoleScalarWhereInput!]
+  description: StringNullableFilter
+  id: IntFilter
+  name: StringFilter
+  userId: IntNullableFilter
+}
+
+input RoleUncheckedUpdateManyWithoutRoleNestedInput {
+  connect: [RoleWhereUniqueInput!]
+  connectOrCreate: [RoleCreateOrConnectWithoutRoleInput!]
+  create: [RoleCreateWithoutRoleInput!]
+  createMany: RoleCreateManyRoleInputEnvelope
+  delete: [RoleWhereUniqueInput!]
+  deleteMany: [RoleScalarWhereInput!]
+  disconnect: [RoleWhereUniqueInput!]
+  set: [RoleWhereUniqueInput!]
+  update: [RoleUpdateWithWhereUniqueWithoutRoleInput!]
+  updateMany: [RoleUpdateManyWithWhereWithoutRoleInput!]
+  upsert: [RoleUpsertWithWhereUniqueWithoutRoleInput!]
+}
+
+input RoleUpdateManyMutationInput {
+  description: String
+  name: String
+}
+
+input RoleUpdateManyWithWhereWithoutRoleInput {
+  data: RoleUpdateManyMutationInput!
+  where: RoleScalarWhereInput!
+}
+
+input RoleUpdateWithWhereUniqueWithoutRoleInput {
+  data: RoleUpdateWithoutRoleInput!
+  where: RoleWhereUniqueInput!
+}
+
+input RoleUpdateWithoutRoleInput {
+  description: String
+  name: String
+  permissions: PermissionUpdateManyWithoutRolesNestedInput
+}
+
+input RoleUpsertWithWhereUniqueWithoutRoleInput {
+  create: RoleCreateWithoutRoleInput!
+  update: RoleUpdateWithoutRoleInput!
+  where: RoleWhereUniqueInput!
+}
+
+input RoleWhereInput {
+  AND: [RoleWhereInput!]
+  NOT: [RoleWhereInput!]
+  OR: [RoleWhereInput!]
+  description: StringNullableFilter
+  id: IntFilter
+  name: StringFilter
+  permissions: PermissionListRelationFilter
+  role: UserNullableRelationFilter
+  userId: IntNullableFilter
+}
+
+input RoleWhereUniqueInput {
+  AND: [RoleWhereInput!]
+  NOT: [RoleWhereInput!]
+  OR: [RoleWhereInput!]
+  description: StringNullableFilter
+  id: Int
+  name: StringFilter
+  permissions: PermissionListRelationFilter
+  role: UserNullableRelationFilter
+  userId: IntNullableFilter
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+type User {
+  _count: UserCount!
+  description: String
+  email: String!
+  id: ID!
+  name: String!
+  password: String
+  phone: String!
+  roles: [Role!]
+  salt: String
+}
+
+type UserAvgAggregate {
+  id: Float
+}
+
+type UserCount {
+  roles: Int!
+}
+
+type UserCountAggregate {
+  _all: Int!
+  description: Int!
+  email: Int!
+  id: Int!
+  name: Int!
+  password: Int!
+  phone: Int!
+  salt: Int!
+}
+
+input UserCreateInput {
+  description: String
+  email: String!
+  name: String!
+  password: String
+  phone: String!
+  roles: RoleCreateNestedManyWithoutRoleInput
+  salt: String
+}
+
+type UserMaxAggregate {
+  description: String
+  email: String
+  id: Int
+  name: String
+  password: String
+  phone: String
+  salt: String
+}
+
+type UserMinAggregate {
+  description: String
+  email: String
+  id: Int
+  name: String
+  password: String
+  phone: String
+  salt: String
+}
+
+input UserNullableRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+type UserSumAggregate {
+  id: Int
+}
+
+input UserUncheckedUpdateInput {
+  description: String
+  email: String
+  id: Int
+  name: String
+  password: String
+  phone: String
+  roles: RoleUncheckedUpdateManyWithoutRoleNestedInput
+  salt: String
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  description: StringNullableFilter
+  email: StringFilter
+  id: IntFilter
+  name: StringFilter
+  password: StringNullableFilter
+  phone: StringFilter
+  roles: RoleListRelationFilter
+  salt: StringNullableFilter
+}
