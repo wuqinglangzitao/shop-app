@@ -26,6 +26,31 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+Nest Monorepo Graphql BFF project.
+
+## Running postgresql && redis
+需要安装 Docker
+```bash
+ docker-compose up
+```
+
+
+
+## Init DB
+```bash
+  app:prisma-init
+```
+
+## DB Push
+```bash
+ app:prisma-db-push
+```
+
+## Generate Prisma Client
+```bash
+ app:prisma-generate
+```
+
 ## Installation
 
 ```bash
@@ -36,27 +61,16 @@ $ pnpm install
 
 ```bash
 # development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
+$ app:dev
 
 # production mode
-$ pnpm run start:prod
+$ app:prod
 ```
 
-## Test
 
-```bash
-# unit tests
-$ pnpm run test
 
-# e2e tests
-$ pnpm run test:e2e
 
-# test coverage
-$ pnpm run test:cov
-```
+
 
 ## Support
 
