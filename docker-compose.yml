@@ -7,16 +7,19 @@ services:
 
   postgres:
     image: postgres:latest
+    container_name: postgres-shop
     restart: always
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=Postgres.123
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - /usr/local/pgsql:/var/lib/postgresql/data
     ports:
       - '5432:5432'
   redis:
     image: redis:latest
+    container_name: redis-shop
+    command: redis-server --requirepass Redis.123
     # 容器主机名为minio
     hostname: redis-shop
     restart: always
