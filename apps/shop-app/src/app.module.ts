@@ -4,18 +4,15 @@
  * @Autor: laikt
  * @Date: 2023-08-28 11:45:30
  * @LastEditors: laikt
- * @LastEditTime: 2023-09-26 17:11:49
+ * @LastEditTime: 2024-08-05 18:10:21
  */
 import { Module, Global } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CacheModule } from '@nestjs/cache-manager';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver } from '@nestjs/apollo';
 import {
   CacheConfigService,
   HttpConfigService,
   MulterConfigService,
-  GraphqlService,
 } from '@app/config';
 import { HttpModule } from '@nestjs/axios';
 import { MulterModule } from '@nestjs/platform-express';
@@ -42,10 +39,6 @@ import { JwtService } from '@nestjs/jwt';
     }),
     MulterModule.registerAsync({
       useClass: MulterConfigService,
-    }),
-    GraphQLModule.forRootAsync({
-      driver: ApolloDriver,
-      useClass: GraphqlService,
     }),
     UserModule,
     AuthModule,

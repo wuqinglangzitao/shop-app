@@ -4,7 +4,7 @@
  * @Autor: laikt
  * @Date: 2023-09-19 17:22:52
  * @LastEditors: laikt
- * @LastEditTime: 2023-09-28 11:18:50
+ * @LastEditTime: 2024-08-05 18:19:57
  */
 import { Module, forwardRef } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -13,20 +13,31 @@ import { JwtStrategy } from './jwt.strategy';
 import { UserModule } from 'apps/shop-app/src/user/user.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './constants';
+import { ConfigModule } from '@nestjs/config';
 import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
 @Module({
   imports: [
     forwardRef(() => UserModule),
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1h' }, // token 过期时效
+    // JwtModule.register({
+    //   secret: jwtConstants.secret,
+    //   signOptions: { expiresIn: '1h' }, // token 过期时效
+    // }),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        console.log('JWT_SECRET', configService.get('JWT_SECRET'));
+
+        return {
+          secret: configService.get('JWT_SECRET'),
+          signOptions: { expiresIn: '1h' }, // token 过期时效
+        };
+      },
     }),
   ],
   providers: [
-    JwtService,
+    // JwtService,
     AuthService,
     LocalStrategy,
     JwtStrategy,

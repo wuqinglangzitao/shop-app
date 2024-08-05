@@ -4,13 +4,14 @@
  * @Autor: laikt
  * @Date: 2023-09-19 17:22:52
  * @LastEditors: laikt
- * @LastEditTime: 2023-09-28 11:16:58
+ * @LastEditTime: 2024-08-05 18:22:03
  */
 // src/logical/auth/auth.service.ts
 import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { UserService } from 'apps/shop-app/src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { encryptPassword } from '../utils/cryptogram';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -18,11 +19,14 @@ export class AuthService {
     @Inject(forwardRef(() => UserService))
     private readonly usersService: UserService,
     private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) {}
 
   // JWT验证 - Step 2: 校验用户信息
   async validateUser(phone: string, password: string): Promise<any> {
     const user = await this.usersService.findOneByName(phone);
+    console.log(user);
+
     if (user) {
       const hashedPassword = user.password;
       const salt = user.salt;
@@ -49,9 +53,13 @@ export class AuthService {
       email: user.email,
     };
     try {
-      const token = this.jwtService.sign(payload);
+      const key = this.configService.get('JWT_SECRET');
+      const token = this.jwtService.sign(payload, {
+        secret: key,
+      });
       return token;
     } catch (error) {
+      console.log(error);
       return null;
     }
   }

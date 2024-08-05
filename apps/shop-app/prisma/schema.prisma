@@ -11,25 +11,24 @@ datasource db {
 }
 
 generator nestgraphql {
-  provider               = "node node_modules/prisma-nestjs-graphql"
-  output                 = "../src/@generated/prisma-nestjs-graphql"
-  fields_Validator_from  = "class-validator"
-  fields_Validator_input = true
-  reExport               = Directories
-  noAtomicOperations     = true
+  provider        = "prisma-generator-nestjs-dto"
+  output          = "../src/generated/nestjs-dto"
+  reExport        = true
+  classValidation = true
+  outputToNestJsResourceStructure = true
+  prettier        = true
 }
 
 model User {
   id          Int     @id @default(autoincrement())
-  /// @Validator.IsEmail()
-  /// @Validator.IsNotEmpty({ message: '用户名不能为空' })
+  /// @IsNotEmpty({ message: '用户名不能为空' })
   email       String  @unique
-  /// @Validator.MinLength(3)
-  /// @Validator.MaxLength(50)
-  /// @Validator.IsNotEmpty({ message: '用户名不能为空' })
+  /// @minLength 3
+  /// @maxLength 50
+  /// @IsNotEmpty({ message: '用户名不能为空' })
   name        String  @unique
-  /// @Validator.IsMobilePhone('zh-CN')
-  /// @Validator.IsNotEmpty({ message: '手机号不能为空'})
+  /// @IsMobilePhone('zh-CN')
+  /// @IsNotEmpty({ message: '手机号不能为空'})
   phone       String  @unique
   password    String?
   salt        String?
@@ -41,8 +40,8 @@ model User {
 
 model Role {
   id          Int          @id @default(autoincrement())
-  /// @Validator.MinLength(3)
-  /// @Validator.MaxLength(50)
+  /// @MinLength(3)
+  /// @MaxLength(50)
   name        String
   description String?
   permissions Permission[]
@@ -55,8 +54,8 @@ model Role {
 model Permission {
   id          Int     @id @default(autoincrement())
   description String?
-  /// @Validator.MinLength(3)
-  /// @Validator.MaxLength(50)
+  /// @MinLength(3)
+  /// @MaxLength(50)
   name        String
   roleId      Int?
   roles       Role?   @relation(fields: [roleId], references: [id])

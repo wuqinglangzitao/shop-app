@@ -4,12 +4,14 @@
  * @Autor: laikt
  * @Date: 2023-09-19 17:22:52
  * @LastEditors: laikt
- * @LastEditTime: 2023-09-19 17:52:38
+ * @LastEditTime: 2024-08-05 17:10:18
  */
 export const jwtConstants = {
-  secret: process.env.JWT_SECRET, // 秘钥
+  // secret: '1111111' || process.env.JWT_SECRET, // 秘钥
+  secret: '1111111', // 秘钥
 };
 
+console.log('process.env.JWT_SECRET', process.env.JWT_SECRET);
 export const roleConstans = {
   SUPER_ADMIN: 0, // 超级管理员
   ADMIN: 1, // 管理员

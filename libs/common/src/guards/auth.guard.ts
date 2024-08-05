@@ -4,7 +4,7 @@
  * @Autor: laikt
  * @Date: 2023-09-26 13:41:49
  * @LastEditors: laikt
- * @LastEditTime: 2023-09-26 17:08:08
+ * @LastEditTime: 2024-08-05 15:45:21
  */
 import {
   ExecutionContext,
@@ -30,6 +30,7 @@ export class AuthGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
+
     if (isPublic) {
       // 💡 See this condition
       return true;

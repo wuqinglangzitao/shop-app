@@ -4,21 +4,18 @@
  * @Autor: laikt
  * @Date: 2023-09-15 15:09:46
  * @LastEditors: laikt
- * @LastEditTime: 2023-09-27 10:07:02
+ * @LastEditTime: 2024-08-05 16:18:32
  */
 import { Injectable, BadRequestException } from '@nestjs/common';
-import {
-  UserCreateInput,
-  UserUncheckedUpdateInput,
-} from '../@generated/prisma-nestjs-graphql/user';
+import { CreateUserDto, UpdateUserDto } from '../generated/nestjs-dto';
 import { PrismaService } from '@app/config/prisma.service';
-import { RegisterInput } from './register.input';
+import { RegisterDTO } from './register.dto';
 import { makeSalt, encryptPassword } from '@app/common';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createUserInput: UserCreateInput) {
+  create(createUserInput: CreateUserDto) {
     return this.prisma.user.create({
       data: createUserInput,
     });
@@ -28,10 +25,10 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
-  findOneByName(name: string) {
+  findOneByName(phone: string) {
     return this.prisma.user.findFirst({
       where: {
-        name,
+        phone,
       },
     });
   }
@@ -44,7 +41,7 @@ export class UserService {
     });
   }
 
-  update(id: number, updateUserInput: UserUncheckedUpdateInput) {
+  update(id: number, updateUserInput: UpdateUserDto) {
     return this.prisma.user.update({
       where: {
         id,
@@ -75,7 +72,7 @@ export class UserService {
     });
   }
 
-  async register(createUserInput: RegisterInput) {
+  async register(createUserInput: RegisterDTO) {
     const { password, confirmPassword, email, phone, name } = createUserInput;
     if (password !== confirmPassword) {
       throw new BadRequestException('密码不一致');
@@ -86,11 +83,13 @@ export class UserService {
     }
     const salt = makeSalt(); // 制作密码盐
     const hashPwd = encryptPassword(password, salt); // 加密密码
-    createUserInput.salt = salt;
-    createUserInput.password = hashPwd;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { confirmPassword: _, ...userInfo } = createUserInput;
+    userInfo.salt = salt;
+    userInfo.password = hashPwd;
 
     return this.prisma.user.create({
-      data: createUserInput,
+      data: userInfo,
     });
   }
 }

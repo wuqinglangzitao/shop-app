@@ -4,7 +4,7 @@
  * @Autor: laikt
  * @Date: 2023-09-19 17:22:52
  * @LastEditors: laikt
- * @LastEditTime: 2023-09-20 14:03:26
+ * @LastEditTime: 2024-08-05 15:45:31
  */
 // src/logical/auth/local.strategy.ts
 import { Strategy } from 'passport-local';

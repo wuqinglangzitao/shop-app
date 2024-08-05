@@ -4,7 +4,7 @@
  * @Autor: laikt
  * @Date: 2023-08-28 11:45:30
  * @LastEditors: laikt
- * @LastEditTime: 2023-09-26 17:09:54
+ * @LastEditTime: 2024-08-05 14:30:00
  */
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';

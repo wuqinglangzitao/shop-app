@@ -4,7 +4,7 @@
  * @Autor: laikt
  * @Date: 2023-08-29 18:09:17
  * @LastEditors: laikt
- * @LastEditTime: 2023-08-29 18:09:45
+ * @LastEditTime: 2024-08-05 18:38:00
  */
 // src/interceptor/transform.interceptor.ts
 import {
@@ -32,7 +32,11 @@ export class TransformInterceptor implements NestInterceptor {
     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`;
         Logger.info(logFormat);
         Logger.access(logFormat);
-        return data;
+        return {
+          statusCode: 200,
+          data,
+          msg: '请求成功',
+        };
       }),
     );
   }

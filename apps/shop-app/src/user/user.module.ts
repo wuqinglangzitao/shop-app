@@ -4,23 +4,25 @@
  * @Autor: laikt
  * @Date: 2023-09-15 15:09:46
  * @LastEditors: laikt
- * @LastEditTime: 2023-09-22 10:40:47
+ * @LastEditTime: 2024-08-05 14:39:01
  */
 import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserResolver } from './user.resolver';
+// import { UserResolver } from './user.resolver';
+import { UserController } from './user.controller';
 import { PrismaService } from '@app/config/prisma.service';
 import { AuthService } from '@app/common/auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
 @Module({
   imports: [],
   providers: [
-    UserResolver,
+    UserController,
     UserService,
     PrismaService,
     AuthService,
     JwtService,
   ],
-  exports: [UserService, UserResolver],
+  exports: [UserService],
+  controllers: [UserController],
 })
 export class UserModule {}

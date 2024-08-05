@@ -4,7 +4,7 @@
  * @Autor: laikt
  * @Date: 2023-09-19 17:22:52
  * @LastEditors: laikt
- * @LastEditTime: 2023-09-20 16:43:28
+ * @LastEditTime: 2024-08-05 17:29:34
  */
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';

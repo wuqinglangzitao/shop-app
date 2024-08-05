@@ -4,7 +4,7 @@
  * @Autor: laikt
  * @Date: 2023-08-28 11:45:30
  * @LastEditors: laikt
- * @LastEditTime: 2023-09-22 18:08:07
+ * @LastEditTime: 2024-08-05 14:33:17
  */
 import { Injectable, Inject } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -20,7 +20,7 @@ export class AppService {
     //   console.log('cacheManager', a);
     // };
     // aaa();
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
     return 'Hello World!';
   }
 }
