@@ -4,7 +4,7 @@
  * @Autor: laikt
  * @Date: 2024-08-04 10:58:31
  * @LastEditors: laikt
- * @LastEditTime: 2024-08-05 18:26:07
+ * @LastEditTime: 2024-08-11 14:02:31
  */
 import { Controller, Post, Body, Get } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -14,7 +14,7 @@ import { User } from '../generated/nestjs-dto';
 import { CreateUserDto } from '../generated/nestjs-dto';
 import { RegisterDTO } from './register.dto';
 import { LoginDTO } from './login.dto';
-import { Public } from '@app/common/decorator';
+import { Public, CurrentUser } from '@app/common/decorator';
 @ApiBearerAuth() // Swagger 的 JWT 验证
 @ApiTags('user')
 @Controller('user')
@@ -31,9 +31,10 @@ export class UserController {
   findAll() {
     return this.usersService.findAll();
   }
-  @Public()
+  // @Public()
   @Post('find-one')
-  findOne(@Body() body: any) {
+  findOne(@Body() body: any, @CurrentUser() user) {
+    console.log('user', user);
     return this.usersService.findOne(body.id);
   }
   // JWT验证 - Step 1: 用户请求登录

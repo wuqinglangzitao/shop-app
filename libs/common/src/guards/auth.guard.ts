@@ -4,7 +4,7 @@
  * @Autor: laikt
  * @Date: 2023-09-26 13:41:49
  * @LastEditors: laikt
- * @LastEditTime: 2024-08-05 15:45:21
+ * @LastEditTime: 2024-08-11 13:57:50
  */
 import {
   ExecutionContext,
@@ -18,11 +18,14 @@ import { jwtConstants } from '../auth';
 import { Request } from 'express';
 import { IS_PUBLIC_KEY } from '../decorator';
 import { GqlExecutionContext } from '@nestjs/graphql';
+import { ConfigService } from '@nestjs/config';
+
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
     private reflector: Reflector,
+    private readonly configService: ConfigService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -42,12 +45,13 @@ export class AuthGuard implements CanActivate {
     }
     try {
       const payload = await this.jwtService.verifyAsync(token, {
-        secret: jwtConstants.secret,
+        secret: this.configService.get('JWT_SECRET'),
       });
       // 💡 We're assigning the payload to the request object here
       // so that we can access it in our route handlers
       request['user'] = payload;
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new UnauthorizedException();
     }
     return true;
