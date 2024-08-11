@@ -4,7 +4,7 @@
  * @Autor: laikt
  * @Date: 2023-09-19 17:22:52
  * @LastEditors: laikt
- * @LastEditTime: 2024-08-05 18:19:57
+ * @LastEditTime: 2024-08-11 15:18:12
  */
 import { Module, forwardRef } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -27,8 +27,6 @@ import { ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        console.log('JWT_SECRET', configService.get('JWT_SECRET'));
-
         return {
           secret: configService.get('JWT_SECRET'),
           signOptions: { expiresIn: '1h' }, // token 过期时效
